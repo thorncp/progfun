@@ -27,16 +27,14 @@ object Main {
     def balanceIter(count: Int, chars: List[Char]): Boolean =
       if (count < 0)
         false
-      else if (chars.isEmpty && count > 1)
-        false
-      else if (chars.isEmpty && count == 0)
-        true
-      else if (chars.head == '(')
-        balanceIter(count + 1, chars.tail)
-      else if (chars.head == ')')
-        balanceIter(count - 1, chars.tail)
+      else if (chars.isEmpty)
+        count == 0
       else
-        balanceIter(count, chars.tail)
+        chars.head match {
+          case '(' => balanceIter(count + 1, chars.tail)
+          case ')' => balanceIter(count - 1, chars.tail)
+          case _   => balanceIter(count, chars.tail)
+        }
 
     balanceIter(0, chars)
   }
