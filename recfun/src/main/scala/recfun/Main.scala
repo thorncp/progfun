@@ -23,7 +23,23 @@ object Main {
   /**
    * Exercise 2
    */
-  def balance(chars: List[Char]): Boolean = ???
+  def balance(chars: List[Char]): Boolean = {
+    def balanceIter(count: Int, chars: List[Char]): Boolean =
+      if (count < 0)
+        false
+      else if (chars.isEmpty && count > 1)
+        false
+      else if (chars.isEmpty && count == 0)
+        true
+      else if (chars.head == '(')
+        balanceIter(count + 1, chars.tail)
+      else if (chars.head == ')')
+        balanceIter(count - 1, chars.tail)
+      else
+        balanceIter(count, chars.tail)
+
+    balanceIter(0, chars)
+  }
 
   /**
    * Exercise 3
