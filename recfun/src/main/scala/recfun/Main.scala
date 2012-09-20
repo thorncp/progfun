@@ -24,17 +24,20 @@ object Main {
    * Exercise 2
    */
   def balance(chars: List[Char]): Boolean = {
+    def valueFor(char: Char): Int =
+      char match {
+        case '(' => 1
+        case ')' => -1
+        case _   => 0
+      }
+
     def balanceIter(count: Int, chars: List[Char]): Boolean =
       if (count < 0)
         false
       else if (chars.isEmpty)
         count == 0
       else
-        chars.head match {
-          case '(' => balanceIter(count + 1, chars.tail)
-          case ')' => balanceIter(count - 1, chars.tail)
-          case _   => balanceIter(count, chars.tail)
-        }
+        balanceIter(count + valueFor(chars.head), chars.tail)
 
     balanceIter(0, chars)
   }
