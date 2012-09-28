@@ -154,6 +154,14 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("filter only contains elements that were in original set") {
+    new TestSets {
+      val s = union(s1, s2)
+      val f = filter(s, x => x < 3)
+      assert(!contains(f, -1))
+    }
+  }
+
   def odd(x: Int): Boolean = x % 2 == 1
   def even(x: Int): Boolean = !odd(x)
 
