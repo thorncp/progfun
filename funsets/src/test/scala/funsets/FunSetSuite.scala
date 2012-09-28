@@ -153,4 +153,50 @@ class FunSetSuite extends FunSuite {
       assert(!contains(f, 2), "Filter does not contain")
     }
   }
+
+  def odd(x: Int): Boolean = x % 2 == 1
+  def even(x: Int): Boolean = !odd(x)
+
+  test("forall succeeds when all elements match") {
+    new TestSets {
+      val s = union(s1, s3)
+      assert(forall(s, odd), "forall matches")
+    }
+  }
+
+  test("forall fails when not all elements match") {
+    new TestSets {
+      val s = union(s1, s2)
+      assert(!forall(s, odd), "forall not matching")
+    }
+  }
+
+  test("exists succeeds when at least one element matches") {
+    new TestSets {
+      assert(exists(union(s1, s2), even), "exists succeeds with one")
+      assert(exists(union(s1, s3), odd), "exists succeed with multiple")
+    }
+  }
+
+  test("exists fails when with no matches") {
+    new TestSets {
+      assert(!exists(union(s1, s3), even), "exists fails with none")
+    }
+  }
+
+  test("map contains transformed elements") {
+    new TestSets {
+      val s = map(union(s2, s3), x => x * x)
+      assert(contains(s, 4), "map contains")
+      assert(contains(s, 9), "map contains")
+    }
+  }
+
+  test("map does not contain original elements") {
+    new TestSets {
+      val s = map(union(s2, s3), x => x * x)
+      assert(!contains(s, 2), "map does not contain")
+      assert(!contains(s, 3), "map does not contain")
+    }
+  }
 }
