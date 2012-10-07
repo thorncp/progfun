@@ -71,8 +71,7 @@ class Empty extends TweetSet {
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
   def filter0(p: Tweet => Boolean, accu: TweetSet): TweetSet =
-    if (this.isEmpty) accu
-    else if (p(this.head)) this.tail.filter0(p, accu.incl(this.head))
+    if (p(this.head)) this.tail.filter0(p, accu.incl(this.head))
     else this.tail.filter0(p, accu)
 
 
