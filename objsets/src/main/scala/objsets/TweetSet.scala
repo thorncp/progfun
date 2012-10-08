@@ -19,7 +19,10 @@ abstract class TweetSet {
   def filter(p: Tweet => Boolean): TweetSet = filter0(p, new Empty)
   def filter0(p: Tweet => Boolean, accu: TweetSet): TweetSet
 
-  def union(that: TweetSet): TweetSet = ???
+  def union(that: TweetSet): TweetSet =
+    if (that.isEmpty) this
+    else if (!this.contains(that.head)) this.incl(that.head).union(that.tail)
+    else this.union(that.tail)
 
   // Hint: the method "remove" on TweetSet will be very useful.
   def ascendingByRetweet: Trending = ???
