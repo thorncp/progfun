@@ -25,7 +25,11 @@ abstract class TweetSet {
     else this.union(that.tail)
 
   // Hint: the method "remove" on TweetSet will be very useful.
-  def ascendingByRetweet: Trending = ???
+  def ascendingByRetweet: Trending = ascendingByRetweet0(new EmptyTrending)
+
+  def ascendingByRetweet0(accu: Trending): Trending =
+    if (this.isEmpty) accu
+    else this.remove(this.findMin).ascendingByRetweet0(accu + this.findMin)
 
   // The following methods are provided for you, and do not have to be changed
   // -------------------------------------------------------------------------
